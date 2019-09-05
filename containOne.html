@@ -1,0 +1,119 @@
+
+
+<div id="containOne">
+	<!-- 合作伙伴 -->
+	<div class="bjgayf5 pdb100 ind_partners">
+		<div class="pubTitle center">
+			<h1 class="fs30">合作伙伴</h1>
+			<p class="fs20 gray6">强强联手，缔元智能财税助您创业</p>
+		</div>
+		<div class="w1200">
+			<ul class="flexRowBetween">
+				<li><img src="images/home-img1.png" alt=""></li>
+				<li><img src="images/home-img2.png" alt=""></li>
+				<li><img src="images/home-img3.png" alt=""></li>
+				<li><img src="images/home-img4.png" alt=""></li>
+				<li><img src="images/home-img5.png" alt=""></li>
+				<li><img src="images/home-img6.png" alt=""></li>
+				<li><img src="images/home-img7.png" alt=""></li>
+				<li><img src="images/home-img8.png" alt=""></li>
+			</ul>
+		</div>
+	</div>
+	
+<div class="indx-lastbox">
+	<div class="w1200 center">
+		<ul>
+			<li v-for="(item,index) in indxLastbox" :key="index">
+				<img class="icon" :src="item.iconUrl" alt="">
+				<h1>{{item.title}}</h1>
+				<p v-for="(child,index) in item.text" :key="index">{{child}}</p>
+			</li>
+		</ul>
+	</div>
+</div>
+
+	
+	
+</div>
+</body>
+
+	<script type="text/javascript">
+		var app = new Vue({
+		    el: '#containOne',
+		    data:function(){
+		        return {
+		        	banner_index:0,
+		        	is_toggle:false,
+					is_show:false,
+					wx_show:2,
+					indxLastbox:[
+						{
+							iconUrl:"images/home-icon14.png",
+							title:"顾问团队",
+							text:["资深顾问团队","严格监督把控流程"]
+						},
+						{
+							iconUrl:"images/home-icon15.png",
+							title:"高效快捷",
+							text:["全天快速响应，流程简单","办理进度实时推送"]
+						},
+						{
+							iconUrl:"images/home-icon16.png",
+							title:"平台保障",
+							text:["专业顾问","一站式一对一服务"]
+						},
+						{
+							iconUrl:"images/home-icon17.png",
+							title:"性价比高",
+							text:["价格公开透明","引领业界良好口碑"]
+						},
+						{
+							iconUrl:"images/home-icon18.png",
+							title:"安全保障",
+							text:["客户信息保密防泄露","省时省心，让您信赖选择"]
+						}
+					]
+					
+		        }
+		    },
+		    created:function () {
+				 var self = this;
+				 window.base.bus.$emit('to_contentTwo',{paginate:self.paginate});
+				 self.getMainData();	
+		    },
+		    methods: {
+		        
+				getMainData: function(id){
+				    var self = this;
+				    var postData = {};
+					//postData.paginate = window.base.cloneForm(self.paginate);
+				    postData.searchItem = window.base.cloneForm(self.searchItem);
+
+					// postData.getAfter = {
+					// 	child: {
+					// 		tableName: 'Label',
+					// 		middleKey: 'id',
+					// 		key: 'parentid',
+					// 		searchItem: {
+					// 			status: 1,
+					// 		},
+					// 		condition: '='
+					// 	},
+					// };
+				    var callback = function(res){
+				        console.log('getMainData', res);
+				        self.mainData.push.apply(self.mainData,res.info.data);
+				        for (var i = 0; i < self.mainData.length; i++) {
+				        	self[self.mainData[i].title] = self.mainData[i];
+				        };
+				        self.getNewsData()
+				    };
+					console.log('self.mainData',self.mainData)
+				    window.base.labelGet(postData, callback);
+				}
+				
+		    }
+		});
+	</script>
+</html>

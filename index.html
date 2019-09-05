@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<title>会计网</title>
+		<script src="./js/vue.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/include.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<link type="text/css" rel="stylesheet" href="css/public.css">
+		<link rel="stylesheet" type="text/css" href="css/page.css">
+	</head>
+
+<body>
+	<div id="app">
+	<!-- 网站导航 -->
+	<div class="pubHeader" >
+		<include src="header.html"></include>
+	</div>
+	
+	<div class="pubHeadBanner">
+		<include src="headBanner.html"></include>
+	</div>
+	
+	
+	<!-- 我要办理相关证 -->
+	<div class="index_fiveCard pdtb50">
+		<div class="w1200">
+			<ul>
+				<li v-for="(item,index) in fiveCard">
+					<h1 class="title avoidOverflow">{{item.title}}</h1>
+					<div class="infor">
+						<p class="price fs24">{{item.price}}</p>
+						<span class="btn center fs14">我要办理</span>
+						<img class="icon" :src="item.iconUrl" alt="">
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- 创业必备服务 -->
+	<div class="bjgayf5 pdb100">
+		<div class="pubTitle center">
+			<h1 class="fs30">创业必备服务</h1>
+			<p class="fs20 gray6">缔元智能财务助您快速创业</p>
+		</div>
+		<div class="index-ctbox2 w1200">
+			<ul class="flexbox">
+				<li>
+					<h1 class="tit">注册公司</h1>
+					<p class="avoidOverflow2">创业者精选服务，为您的企业发展助力</p>
+					<img class="icon" src="images/home-icon5.png" alt="">
+				</li>
+				<li>
+					<h1 class="tit">代理记账</h1>
+					<p class="avoidOverflow2">会计核算不健全，缔元智能财税解决您的记账问题</p>
+					<img class="icon" src="images/home-icon6.png" alt="">
+				</li>
+				<li>
+					<h1 class="tit">资质代办</h1>
+					<p class="avoidOverflow2">创业企业必备，高效安全，一步到位，超高性价比</p>
+					<img class="icon" src="images/home-icon7.png" alt="">
+				</li>
+				<li>
+					<h1 class="tit">知识产权</h1>
+					<p class="avoidOverflow2">商标服务、专利申请、版权登记、多项服务，专人全程跟进</p>
+					<img class="icon" src="images/home-icon8.png" alt="">
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- 服务优势 -->
+	<div class="w1200">
+		<div class="pubTitle center">
+			<h1 class="fs30">服务优势</h1>
+			<p class="fs20 gray6">实力说明一切</p>
+		</div>
+		<div class="ind_advantage">
+			<ul>
+				<li v-for="(item,index) in advantage">
+					<span class="num">{{item.num}}</span>
+					<div class="cont">
+						<h1>{{item.title}}</h1>
+						<p class="avoidOverflow3">{{item.infor}}</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="pdb100"></div>
+	
+
+	<!-- 服务流程 -->
+	<div class="bjgayf5 pdb100 center">
+		<div class="pubTitle center">
+			<h1 class="fs30">服务流程</h1>
+			<p class="fs20 gray6">科学的服务流程，严谨的服务态度，专业的服务内容，为您企业保驾护航</p>
+		</div>
+		<div class="w1200  indx-servicebox">
+			<ul>
+				<li v-for="(item,index) in indshareLis" :key="index">
+					<h2 class="number">{{item.number}}</h2>
+					<img class="icon" :src="item.iconUrl" alt="">
+					<h1>{{item.title}}</h1>
+					<p v-for="(child,index) in item.text" :key="index">{{child}}</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- 资讯动态 -->
+	<div class="w1200">
+		<div class="pubTitle center">
+			<h1 class="fs30">资讯动态</h1>
+			<p class="fs20 gray6">您想要的都在这里，咨询就解决</p>
+		</div>
+		<div class="ind-information">
+			<ul class="flexRowBetween">
+				<li v-for="(item,index) in informationDate" :key="index">
+					<a href="detailPage.html">
+						<div class="time">
+							<h1>{{item.time}}</h1>
+							<p>{{item.year}}</p>
+						</div>
+						<div class="cont">
+							<h1 class="avoidOverflow">{{item.title}}</h1>
+							<p class="avoidOverflow2">{{item.infor}}</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="MdMorebtn"><a href="information.html">查看更多</a></div>
+	</div>
+	
+	<include src="containOne.html"></include>
+	<include src="footer.html"></include>
+	</div>
+</body>
+
+	<script type="text/javascript">
+		var app = new Vue({
+		    el: '#app',
+		    data:function(){
+		        return {
+		        	banner_index:0,
+		        	is_toggle:false,
+					is_show:false,
+					wx_show:2,
+					fiveCard:[
+						{
+							title:"餐饮服务许可证",
+							price:"3500",
+							iconUrl:"images/home-icon1.png"
+						},
+						{
+							title:"餐饮服务许可证",
+							price:"3500",
+							iconUrl:"images/home-icon2.png"
+						},
+						{
+							title:"餐饮服务许可证",
+							price:"3500",
+							iconUrl:"images/home-icon3.png"
+						},
+						{
+							title:"餐饮服务许可证",
+							price:"3500",
+							iconUrl:"images/home-icon4.png"
+						},
+						{
+							title:"餐饮服务许可证",
+							price:"3500",
+							iconUrl:"images/home-icon5.1.png"
+						}
+					],
+					advantage:[
+						//服务优势
+						{
+							num:"01",
+							title:"我们的经验",
+							infor:"年行业经验，已成功为23000多家公司免费注册公司，3000余家代账客户资源，数万家客户的选择，值得信赖；"
+						},
+						{
+							num:"02",
+							title:"我们的实力",
+							infor:"服务人员均数年以上从业经验，10年以上会计68名，3年以上会计128名，均是业内顶尖人员，专业，放心；"
+						},
+						{
+							num:"03",
+							title:"我们的服务",
+							infor:"专属淘钉一站式全程服务，业务范围广泛，满足各类不同业务办理需求；"
+						},
+						{
+							num:"04",
+							title:"我们的售后",
+							infor:"定期进行质量跟踪服务，随时了解服务的办理情况，随时提供支持，根据需要，进行服务支持。"
+						},
+						{
+							num:"05",
+							title:"我们的承诺",
+							infor:"全程透明，服务产品化定制规范，全程监控跟踪业务，进度实时查询跟进；"
+						},
+						{
+							num:"06",
+							title:"我们的流程",
+							infor:"5分钟快速响应，互联网+标准化流程，简单快捷，科学高效，为企业保价护航。"
+						}
+					],
+					indshareLis:[ //服务流程
+						{
+							number:"01",
+							iconUrl:"images/home-icon9.png",
+							title:"在线咨询",
+							text:["咨询客户","400电话","需求分析","分配对接"]
+						},
+						{
+							number:"02",
+							iconUrl:"images/home-icon10.png",
+							title:"商务咨询",
+							text:["私人订制","介绍业务","详谈巨细"]
+						},
+						{
+							number:"03",
+							iconUrl:"images/home-icon11.png",
+							title:"签订合同",
+							text:["资料收集","填写信息","签订合同"]
+						},
+						{
+							number:"04",
+							iconUrl:"images/home-icon12.png",
+							title:"业务办理",
+							text:["立即办理","进度告知","完成服务"]
+						},
+						{
+							number:"05",
+							iconUrl:"images/home-icon13.png",
+							title:"售后服务",
+							text:["全程跟踪","客户回访","服务评价"]
+						}
+					],
+					informationDate:[//资讯动态
+						{
+							time:"08-30",
+							year:'2019',
+							title:"信财税·新智能·新未来 2019智能税峰会",
+							infor:"信财税·新智能·新未来 2019智能税峰会于6月14日分别在张掖店、济宁站、泰安站隆重召开！本次财税峰会"
+						},
+						{
+							time:"08-30",
+							year:'2019',
+							title:"信财税·新智能·新未来 2019智能税峰会",
+							infor:"信财税·新智能·新未来 2019智能税峰会于6月14日分别在张掖店、济宁站、泰安站隆重召开！本次财税峰会"
+						},
+						{
+							time:"08-30",
+							year:'2019',
+							title:"信财税·新智能·新未来 2019智能税峰会",
+							infor:"信财税·新智能·新未来 2019智能税峰会于6月14日分别在张掖店、济宁站、泰安站隆重召开！本次财税峰会"
+						},
+						{
+							time:"08-30",
+							year:'2019',
+							title:"信财税·新智能·新未来 2019智能税峰会",
+							infor:"信财税·新智能·新未来 2019智能税峰会于6月14日分别在张掖店、济宁站、泰安站隆重召开！本次财税峰会"
+						}
+					],
+					indxLastbox:[
+						{
+							iconUrl:"images/home-icon14.png",
+							title:"顾问团队",
+							text:["资深顾问团队","严格监督把控流程"]
+						},
+						{
+							iconUrl:"images/home-icon15.png",
+							title:"高效快捷",
+							text:["全天快速响应，流程简单","办理进度实时推送"]
+						},
+						{
+							iconUrl:"images/home-icon16.png",
+							title:"平台保障",
+							text:["专业顾问","一站式一对一服务"]
+						},
+						{
+							iconUrl:"images/home-icon17.png",
+							title:"性价比高",
+							text:["价格公开透明","引领业界良好口碑"]
+						},
+						{
+							iconUrl:"images/home-icon18.png",
+							title:"安全保障",
+							text:["客户信息保密防泄露","省时省心，让您信赖选择"]
+						}
+					]
+					
+		        }
+		    },
+		    created:function () {
+				 var self = this;
+				 window.base.bus.$emit('to_contentTwo',{paginate:self.paginate});
+				 self.getMainData();	
+		    },
+		    methods: {
+		        
+				getMainData: function(id){
+				    var self = this;
+				    var postData = {};
+					//postData.paginate = window.base.cloneForm(self.paginate);
+				    postData.searchItem = window.base.cloneForm(self.searchItem);
+
+					// postData.getAfter = {
+					// 	child: {
+					// 		tableName: 'Label',
+					// 		middleKey: 'id',
+					// 		key: 'parentid',
+					// 		searchItem: {
+					// 			status: 1,
+					// 		},
+					// 		condition: '='
+					// 	},
+					// };
+				    var callback = function(res){
+				        console.log('getMainData', res);
+				        self.mainData.push.apply(self.mainData,res.info.data);
+				        for (var i = 0; i < self.mainData.length; i++) {
+				        	self[self.mainData[i].title] = self.mainData[i];
+				        };
+				        self.getNewsData()
+				    };
+					console.log('self.mainData',self.mainData)
+				    window.base.labelGet(postData, callback);
+				}
+				
+		    }
+		});
+	</script>
+</html>

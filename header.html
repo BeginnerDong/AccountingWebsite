@@ -1,0 +1,106 @@
+
+<div id="header_app" class="bgc-white">
+	<div class="indNavbar w1200 pdtb20">
+		<!-- <img class="logo" src="images/logo.png"> -->
+		<div class="list center" v-if="shownav">
+			<ul>
+				<li :class="currentUrl=='/index.html'?'on':''">
+					<a href="index.html">网站首页</a>
+				</li>
+				<li :class="currentUrl=='/companyRegister.html'?'on':''">
+					<a href="companyRegister.html">公司注册</a>
+				</li>
+				<li :class="currentUrl=='/agentBookkP.html'?'on':''">
+					<a href="agentBookkP.html">代理记账</a>
+				</li>
+				<li :class="currentUrl=='/agentQualification.html'?'on':''">
+					<a href="agentQualification.html">资质代办</a>
+				</li>
+				<li :class="currentUrl=='/propertyRight.html'?'on':''">
+					<a href="propertyRight.html">知识产权</a>
+				</li>
+				<li :class="currentUrl=='/alteration.html'?'on':''">
+					<a href="alteration.html">公司变更</a>
+				</li>
+				<li :class="currentUrl=='/logout.html'?'on':''">
+					<a href="logout.html">注销公司</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navBtn center iconfont" @click="topNavBtn">&#xe605;</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+	var header_app = new Vue({
+	    el: '#header_app',
+	    data:function(){
+	        return {
+	        	is_toggle:false,
+				shownav:true,
+				currentUrl:''
+	        }
+	    },
+	    created:function () {
+	        var self = this;
+			var currentUrl = window.base.GetUrlRelativePath();
+		
+			var reg = /\/([^\/]+)\.html/i;
+			if(reg.exec(currentUrl)&&reg.exec(currentUrl)[0]){
+				self.currentUrl = reg.exec(currentUrl)[0];
+			}else{
+				self.currentUrl = '/index.html';
+			};
+			console.log('self.currentUrl',self.currentUrl);
+			if(window.screen.width<760){
+				self.shownav = !self.shownav
+			}
+	    },
+	    methods: {
+			toggleMenu:function(e){
+			    var self = this;
+			    self.is_toggle = !self.is_toggle;
+				var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+				var navigation = document.getElementById('navigation');
+				if(scrollTop<100){
+					if(self.is_toggle){
+						$("#navigation").css('background','rgb(0,0,0,0.6)');
+					}else{
+						$("#navigation").css('background','none');
+					};
+				};	
+			},
+			topNavBtn:function(){
+				var self = this;
+				self.shownav = !self.shownav;
+			},
+	        
+	    	changeHeaderStyle: function(){
+	    		var self = this;
+	    		var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+	    		var navigation = document.getElementById('navigation');
+					if(scrollTop>=100){
+						$("#navigation").css('position','fixed');
+						$("#navigation").addClass('animated.faster  slideInDown delay-0.1s');
+						console.log('is_toggle-before08',self.is_toggle)
+						if(!self.is_toggle){
+							navigation.addEventListener('animationend', function() {
+								$("#navigation").css('background-color','hsla(0, 0%, 0%, 0.6)');
+							});
+						};
+					}else{          
+						//恢复正常
+						$("#navigation").css('position','absolute');
+						if(!self.is_toggle){
+							$("#navigation").css('background','none');
+							$("#navigation").css('opacity','1');
+						};
+						$("#navigation").removeClass('animated.faster  slideInDown delay-0.1s');
+					}			
+	    	}
+	    }
+	});   
+</script>
+
