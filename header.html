@@ -27,7 +27,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="navBtn center iconfont" @click="topNavBtn">&#xe605;</div>
+		<div class="navBtn center" @click="topNavBtn"></div>
 	</div>
 </div>
 
@@ -54,7 +54,7 @@
 				self.currentUrl = '/index.html';
 			};
 			console.log('self.currentUrl',self.currentUrl);
-			if(window.screen.width<760){
+			if(window.screen.width<900){
 				self.shownav = !self.shownav
 			}
 	    },
