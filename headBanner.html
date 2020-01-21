@@ -1,6 +1,6 @@
 <div id="banner_app" style="">
 	<div class="banner clearfix" v-for="(item,index) in bannerData" v-show="index==banner_index" style="height:100%">
-		<img :src="item.banImgUrl" />
+		<img :src="item.url" />
 	</div>
 	
 	<!-- 导航点 -->
@@ -27,8 +27,7 @@
 	        	is_toggle:false,
 				is_show:false,
 				bannerData:[
-					{banImgUrl:"images/banner.jpg"},
-					{banImgUrl:"images/registered-img5.png"},
+					
 				],
 				searchItem:{
 					thirdapp_id:window.base.thirdapp_id,
@@ -48,7 +47,7 @@
 				self.currentUrl = '/index.html';
 			};
 			
-
+			self.getMainData();
     		window.base.bus.$on('to_headBanner',(res)=>{	
 				if(res.mainImg){
 					 self.bannerData = res.mainImg
@@ -72,6 +71,21 @@
 			self.bannerTimer = null;
 		},
 	    methods: {
+			
+			getMainData(){
+			    var self = this;
+			    var postData = {};
+				
+			    postData.searchItem = {
+					title:'轮播图'
+				};
+			    var callback = function(res){
+			        console.log('getMainData', res);
+					self.bannerData = res.info.data[0].mainImg
+			    };
+				console.log('self.newsData',self.newsData)
+			    window.base.labelGet(postData, callback);
+			},
 			
 			toBannerOne:function(e){
 				const self = this;

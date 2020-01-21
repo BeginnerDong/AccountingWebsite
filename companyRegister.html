@@ -255,12 +255,12 @@
 			<p class="fs20 gray6">您想要的都在这里，咨询就解决</p>
 		</div>
 		<div class="morQquets w1200 oh">
-			<div class="list oh" v-for="(item,index) in morQquets" :key="index">
-				<img class="pic" :src="item.imgUrl">
+			<div class="list oh" v-for="(item,index) in qaData" :key="index">
+				<img class="pic" :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''">
 				<div class="titLis">
 					<ul>
-						<li v-for="child in item.list">
-							<a href="detailPage.html"><i></i>{{child}}<em>9-15</em>
+						<li v-for="c_item in item.child">
+							<a href="detailPage.html"><i></i>{{c_item.title}}<em>{{c_item.create_time}}</em>
 							</a>
 						</li>
 					</ul>
@@ -328,7 +328,8 @@
 							list:["注册投资管理公司需要什么条件？","注册投资管理公司需要什么条件？","注册投资管理公司需要什么条件？","注册投资管理公司需要什么条件？"],
 							time:"08-31"
 						}
-					]
+					],
+					qaData:[]
 					
 		        }
 		    },
@@ -343,28 +344,36 @@
 				    var self = this;
 				    var postData = {};
 					//postData.paginate = window.base.cloneForm(self.paginate);
-				    postData.searchItem = window.base.cloneForm(self.searchItem);
-
-					// postData.getAfter = {
-					// 	child: {
-					// 		tableName: 'Label',
-					// 		middleKey: 'id',
-					// 		key: 'parentid',
-					// 		searchItem: {
-					// 			status: 1,
-					// 		},
-					// 		condition: '='
-					// 	},
-					// };
+				    postData.searchItem = {
+						thirdapp_id:2
+					};				
+					postData.getBefore = {
+					 	child: {
+					 		tableName: 'Label',
+					 		middleKey: 'parentid',
+					 		key: 'id',
+					 		searchItem: {
+					 			title:['in',['更多问题']]
+					 		},
+					 		condition: 'in'
+					 	},
+					};
+					postData.getAfter = {
+					 	child: {
+					 		tableName: 'Article',
+					 		middleKey: 'id',
+					 		key: 'menu_id',
+					 		searchItem: {
+					 			status:1
+					 		},
+					 		condition: '='
+					 	},					
+					};
 				    var callback = function(res){
 				        console.log('getMainData', res);
-				        self.mainData.push.apply(self.mainData,res.info.data);
-				        for (var i = 0; i < self.mainData.length; i++) {
-				        	self[self.mainData[i].title] = self.mainData[i];
-				        };
-				        self.getNewsData()
+				        self.qaData.push.apply(self.qaData,res.info.data)   
 				    };
-					console.log('self.mainData',self.mainData)
+					console.log('self.qaData',self.qaData)
 				    window.base.labelGet(postData, callback);
 				}
 				
